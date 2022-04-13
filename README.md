@@ -1,1 +1,1 @@
-# pragma-get-function-args
+# PragmaGetFunctionArgs
