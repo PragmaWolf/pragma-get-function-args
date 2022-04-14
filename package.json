@@ -1,48 +1,52 @@
 {
-    "name": "pragma-get-function-args",
-    "version": "1.0.0",
-    "description": "Get function arguments from function declaration string ",
-    "main": "index.js",
-    "engines": {
-        "node": ">=14.17"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/PragmaWolf/pragma-get-function-args.git"
-    },
-    "keywords": [
-        "pragma",
-        "string",
-        "function",
-        "arguments",
-        "args",
-        "parser"
-    ],
-    "author": "Dmitry Furman <pragmawolf@gmail.com>",
-    "license": "WTFPL",
-    "bugs": {
-        "url": "https://github.com/PragmaWolf/pragma-get-function-args/issues"
-    },
-    "homepage": "https://github.com/PragmaWolf/pragma-get-function-args#readme",
-    "scripts": {
-        "test": "./node_modules/.bin/jest --colors --runInBand --verbose --forceExit --testTimeout=7000",
-        "test:watch": "./node_modules/.bin/jest  --watch --colors --runInBand --verbose --forceExit",
-        "test:silent": "./node_modules/.bin/jest --colors --runInBand --verbose",
-        "lint": "./node_modules/.bin/eslint --ext .js ./index.js",
-        "lint-tests": "./node_modules/.bin/eslint --ext .js ./tests/",
-        "lint:fix": "./node_modules/.bin/eslint --ext .js ./index.js --fix",
-        "lint:deps": "echo \"Check unused dependencies\" && npx npm-check-unused --production --no-emoji --no-spinner"
-    },
-    "devDependencies": {
-        "@babel/eslint-parser": "7.17.0",
-        "eslint": "8.13.0",
-        "eslint-config-google": "0.14.0",
-        "jest": "27.5.1"
-    },
-    "jest": {
-        "testEnvironment": "node",
-        "coveragePathIgnorePatterns": [
-            "/node_modules/"
-        ]
-    }
+  "name": "pragma-get-function-args",
+  "version": "1.0.0",
+  "description": "Get function arguments from function declaration string ",
+  "main": "index.js",
+  "engines": {
+    "node": ">=14.17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PragmaWolf/pragma-get-function-args.git"
+  },
+  "keywords": [
+    "pragma",
+    "string",
+    "function",
+    "arguments",
+    "args",
+    "parser"
+  ],
+  "author": "Dmitry Furman <pragmawolf@gmail.com>",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/PragmaWolf/pragma-get-function-args/issues"
+  },
+  "homepage": "https://github.com/PragmaWolf/pragma-get-function-args#readme",
+  "scripts": {
+    "test": "jest --colors --runInBand --verbose --forceExit --testTimeout=7000",
+    "test:watch": "jest  --watch --colors --runInBand --verbose --forceExit",
+    "test:silent": "jest --colors --runInBand --verbose",
+    "lint": "eslint --ext .js ./index.js",
+    "lint-tests": "eslint --ext .js ./tests/",
+    "lint:fix": "eslint --ext .js ./index.js --fix",
+    "lint:deps": "echo \"Check unused dependencies\" && npx npm-check-unused --production --no-emoji --no-spinner"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "7.17.0",
+    "eslint": "8.13.0",
+    "eslint-config-google": "0.14.0",
+    "jest": "27.5.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {}
 }
