@@ -71,9 +71,16 @@ module.exports = func => {
         .replace(/\r|\n/gim, '')
         .replace(/\s{2,}/gim, ' ');
 
-    const pattern = new RegExp('^(\\w+(?=\\s*\\=>))|.*(\\(.*\\))', 'gim');
-    const matchedArgs = Array.from(funcStr.matchAll(pattern));
-    let getBaseArgs = matchedArgs?.[0]?.[2]?.trim() || matchedArgs?.[0]?.[0]?.trim();
+    const pattern = new RegExp('(^\\w+(?=\\s*\\=>))|^.*(\\([^)]*\\)(?=\\s*\\=>))|^.*(\\([^)]*\\)(?=\\s*\\{))', 'gim');
+    let matchedArgs = Array.from(funcStr.matchAll(pattern));
+    if (!matchedArgs.length) {
+        return [];
+    }
+    matchedArgs = matchedArgs[0].filter(Boolean);
+    if (!matchedArgs[1]) {
+        return [];
+    }
+    let getBaseArgs = matchedArgs[1].trim();
     getBaseArgs = String(getBaseArgs).replace(/[()]/gim, '');
 
     const destructuredArgs = {};
