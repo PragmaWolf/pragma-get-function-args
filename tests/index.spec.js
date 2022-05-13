@@ -689,4 +689,28 @@ describe('Should return correct result when', () => {
         const funcResult = pragmaGetFunctionArgs(new Test().isMethod);
         testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
     });
+
+    describe('Call using array function with typeof inside', () => {
+        const func = value => {
+            if ((typeof value === 'undefined' || value === null)) {
+                return true;
+            }
+            if (Array.isArray(value)) {
+                return false;
+            }
+
+            return false;
+        };
+        const waitingObjProps = {
+            name: ['value'],
+            type: ['any'],
+            default: [undefined],
+            required: [true],
+            destructured: [false],
+            properties: ['!exists'],
+        };
+
+        const funcResult = pragmaGetFunctionArgs(func);
+        testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
+    });
 });
