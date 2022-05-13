@@ -713,4 +713,25 @@ describe('Should return correct result when', () => {
         const funcResult = pragmaGetFunctionArgs(func);
         testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
     });
+
+    describe('Call using array function with typeof inside', () => {
+        const func = (delimiter, isEmpty = false) => {
+            const validator = value => {
+                return ((typeof value === 'undefined' || value === null) && isEmpty);
+            };
+
+            return validator;
+        };
+        const waitingObjProps = {
+            name: ['delimiter', 'isEmpty'],
+            type: ['any', 'boolean'],
+            default: [undefined, false],
+            required: [true, false],
+            destructured: [false, false],
+            properties: ['!exists', '!exists'],
+        };
+
+        const funcResult = pragmaGetFunctionArgs(func);
+        testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
+    });
 });
