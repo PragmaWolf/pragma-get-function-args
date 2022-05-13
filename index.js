@@ -67,11 +67,14 @@ module.exports = func => {
     if (typeof func !== 'function') {
         return [];
     }
-    const funcStr = func.toString();
+    const funcStr = func.toString()
+        .replace(/\r|\n/gim, '')
+        .replace(/\s{2,}/gim, ' ');
 
-    const matchedArgs = Array.from(funcStr.matchAll(/^[^(]*(\([^)]+\))|([^=]+)/gim));
-    let getBaseArgs = matchedArgs?.[0]?.[1]?.trim() || matchedArgs?.[0]?.[2]?.trim();
-    getBaseArgs = getBaseArgs.replace(/[()]/gim, '');
+    const pattern = new RegExp('^(\\w+(?=\\s*\\=>))|.*(\\(.*\\))', 'gim');
+    const matchedArgs = Array.from(funcStr.matchAll(pattern));
+    let getBaseArgs = matchedArgs?.[0]?.[2]?.trim() || matchedArgs?.[0]?.[0]?.trim();
+    getBaseArgs = String(getBaseArgs).replace(/[()]/gim, '');
 
     const destructuredArgs = {};
     const patternSplitArgs = /\s*,\s*/;
