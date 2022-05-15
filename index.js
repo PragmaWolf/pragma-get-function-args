@@ -71,7 +71,7 @@ module.exports = func => {
         .replace(/\r|\n/gim, '')
         .replace(/\s{2,}/gim, ' ');
 
-    const pattern = new RegExp('(^\\w+(?=\\s*\\=>))|^.*(\\([^)]*\\)(?=\\s*\\=>))|^.*(\\([^)]*\\)(?=\\s*\\{))', 'gim');
+    const pattern = new RegExp('^((\\w*)(?=\\s*=>))|^[^(]*\\(([^)]+)\\)', 'gim');
     let matchedArgs = Array.from(funcStr.matchAll(pattern));
     if (!matchedArgs.length) {
         return [];

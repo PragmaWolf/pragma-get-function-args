@@ -1,6 +1,6 @@
 {
   "name": "pragma-get-function-args",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Get function arguments from function declaration string ",
   "main": "index.js",
   "engines": {
