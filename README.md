@@ -43,7 +43,7 @@ Variable `yourFunctionArgs` will be contains:
         destructured: false // Argument is not destructured from incoming object
     },
     { // Object with data of destructured argument
-        name: undefined, // Incoming object has no name
+        name: argument2argument3, // Generated from properties names
         type: 'object', // Because arguments destructured from incoming object
         required: true, // Because incoming object have not default value
         destructured: true, // Arguments is destructured from incoming object

@@ -117,7 +117,7 @@ module.exports = func => {
         let name = argPrepared[0];
         argData.destructured = false;
         if (destructuredArgs?.[argPrepared[0]]) {
-            name = undefined;
+            name = destructuredArgs[argPrepared[0]].map(val => val.name).join('');
             argData.type = 'object';
             argData.destructured = true;
             argData.properties = destructuredArgs[argPrepared[0]];
@@ -126,7 +126,7 @@ module.exports = func => {
                 delete argData.default;
             }
             for (const i in argData.properties) {
-                if (argData.properties[i].required) {
+                if (argData.properties[i].required && !argData.default) {
                     argData.required = true;
                     break;
                 }
