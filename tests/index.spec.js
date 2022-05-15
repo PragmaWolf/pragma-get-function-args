@@ -714,18 +714,58 @@ describe('Should return correct result when', () => {
         testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
     });
 
-    describe('Call using array function with typeof inside', () => {
+    describe('Call using carry function', () => {
         const func = (delimiter, isEmpty = false) => {
-            const validator = value => {
+            const funcName = value => { // eslint-disable-line arrow-body-style
                 return ((typeof value === 'undefined' || value === null) && isEmpty);
             };
 
-            return validator;
+            return funcName;
         };
         const waitingObjProps = {
             name: ['delimiter', 'isEmpty'],
             type: ['any', 'boolean'],
             default: [undefined, false],
+            required: [true, false],
+            destructured: [false, false],
+            properties: ['!exists', '!exists'],
+        };
+
+        const funcResult = pragmaGetFunctionArgs(func);
+        testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
+    });
+
+    describe('Call using classic function definition', () => {
+        const func = function classicFunction(object, options = {}) {
+            if (typeof object !== 'object') {
+                return object;
+            }
+            return object;
+        };
+        const waitingObjProps = {
+            name: ['object', 'options'],
+            type: ['any', 'object'],
+            default: [undefined, {}],
+            required: [true, false],
+            destructured: [false, false],
+            properties: ['!exists', '!exists'],
+        };
+
+        const funcResult = pragmaGetFunctionArgs(func);
+        testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
+    });
+
+    describe('Call using function-generator', () => {
+        const func = function * generatorFunction(object, options = {}) { // eslint-disable-line generator-star-spacing
+            if (typeof object !== 'object') {
+                yield object;
+            }
+            yield object;
+        };
+        const waitingObjProps = {
+            name: ['object', 'options'],
+            type: ['any', 'object'],
+            default: [undefined, {}],
             required: [true, false],
             destructured: [false, false],
             properties: ['!exists', '!exists'],
