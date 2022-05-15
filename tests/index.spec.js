@@ -454,7 +454,7 @@ describe('Should return correct result when', () => {
     describe('Call using array function [({foo, bar}) => 0]', () => {
         const func = ({foo, bar}) => 0;
         const waitingObjProps = {
-            name: [undefined],
+            name: ['foobar'],
             type: ['object'],
             default: ['!exists'],
             required: [true],
@@ -477,7 +477,7 @@ describe('Should return correct result when', () => {
     describe('Call using array function [(boo, {foo, bar}) => 0]', () => {
         const func = (boo, {foo, bar}) => 0;
         const waitingObjProps = {
-            name: ['boo', undefined],
+            name: ['boo', 'foobar'],
             type: ['any', 'object'],
             default: [undefined, '!exists'],
             required: [true, true],
@@ -501,7 +501,7 @@ describe('Should return correct result when', () => {
     describe('Call using array function [(boo, ({foo, bar}, boo) => 0]', () => {
         const func = ({foo, bar}, boo) => 0;
         const waitingObjProps = {
-            name: [undefined, 'boo'],
+            name: ['foobar', 'boo'],
             type: ['object', 'any'],
             default: ['!exists', undefined],
             required: [true, true],
@@ -525,7 +525,7 @@ describe('Should return correct result when', () => {
     describe('Call using array function [(baz = 123, {foo = false, bar = \'\'}, boo = null) => 0]', () => {
         const func = (baz = 123, {foo = false, bar = ''} = {}, boo = null) => 0;
         const waitingObjProps = {
-            name: ['baz', undefined, 'boo'],
+            name: ['baz', 'foobar', 'boo'],
             type: ['number', 'object', 'any'],
             default: [123, {}, null],
             required: [false, false, false],
@@ -550,7 +550,7 @@ describe('Should return correct result when', () => {
     describe('Call using array function [(baz, {foo, bar = \'\'}, boo = null) => 0]', () => {
         const func = (baz, {foo, bar = ''}, boo = null) => 0;
         const waitingObjProps = {
-            name: ['baz', undefined, 'boo'],
+            name: ['baz', 'foobar', 'boo'],
             type: ['any', 'object', 'any'],
             default: [undefined, '!exists', null],
             required: [true, true, false],
@@ -578,7 +578,7 @@ describe('Should return correct result when', () => {
             return 0;
         }
         const waitingObjProps = {
-            name: ['baz', undefined, 'boo'],
+            name: ['baz', 'foobar', 'boo'],
             type: ['any', 'object', 'any'],
             default: [undefined, '!exists', null],
             required: [true, true, false],
@@ -606,7 +606,7 @@ describe('Should return correct result when', () => {
             return 0;
         };
         const waitingObjProps = {
-            name: ['baz', undefined, 'boo'],
+            name: ['baz', 'foobar', 'boo'],
             type: ['any', 'object', 'any'],
             default: [undefined, '!exists', null],
             required: [true, true, false],
@@ -628,6 +628,72 @@ describe('Should return correct result when', () => {
         testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
     });
 
+    describe('Call using function [const func = function({foo, bar = \'\'}, {baz, boo = null})]', () => {
+        // eslint-disable-next-line require-jsdoc
+        const func = function({foo, bar = ''}, {baz, boo = null}) {
+            return 0;
+        };
+        const waitingObjProps = {
+            name: ['foobar', 'bazboo'],
+            type: ['object', 'object'],
+            default: ['!exists', '!exists'],
+            required: [true, true],
+            destructured: [true, true],
+            properties: [
+                {
+                    name: ['foo', 'bar'],
+                    type: ['any', 'string'],
+                    default: [undefined, ''],
+                    required: [true, false],
+                    destructured: ['!exists', '!exists'],
+                },
+                {
+                    name: ['baz', 'boo'],
+                    type: ['any', 'any'],
+                    default: [undefined, null],
+                    required: [true, false],
+                    destructured: ['!exists', '!exists'],
+                },
+            ],
+        };
+
+        const funcResult = pragmaGetFunctionArgs(func);
+        testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
+    });
+
+    describe('Call using function [const func = function({foo, bar = \'\'}, {baz, boo = null} = {})]', () => {
+        // eslint-disable-next-line require-jsdoc
+        const func = function({foo, bar = ''}, {baz, boo = null} = {}) {
+            return 0;
+        };
+        const waitingObjProps = {
+            name: ['foobar', 'bazboo'],
+            type: ['object', 'object'],
+            default: ['!exists', {}],
+            required: [true, false],
+            destructured: [true, true],
+            properties: [
+                {
+                    name: ['foo', 'bar'],
+                    type: ['any', 'string'],
+                    default: [undefined, ''],
+                    required: [true, false],
+                    destructured: ['!exists', '!exists'],
+                },
+                {
+                    name: ['baz', 'boo'],
+                    type: ['any', 'any'],
+                    default: [undefined, null],
+                    required: [true, false],
+                    destructured: ['!exists', '!exists'],
+                },
+            ],
+        };
+
+        const funcResult = pragmaGetFunctionArgs(func);
+        testsResponse(funcResult, waitingObjProps, waitingObjProps.name.length);
+    });
+
     describe('Call using class static method [class Test {  static isMethod(baz, {foo, bar = \'\'}, boo = null) }]', () => {
         // eslint-disable-next-line require-jsdoc
         class Test {
@@ -637,7 +703,7 @@ describe('Should return correct result when', () => {
             }
         }
         const waitingObjProps = {
-            name: ['baz', undefined, 'boo'],
+            name: ['baz', 'foobar', 'boo'],
             type: ['any', 'object', 'any'],
             default: [undefined, '!exists', null],
             required: [true, true, false],
@@ -668,7 +734,7 @@ describe('Should return correct result when', () => {
             }
         }
         const waitingObjProps = {
-            name: ['baz', undefined, 'boo'],
+            name: ['baz', 'foobar', 'boo'],
             type: ['any', 'object', 'any'],
             default: [undefined, '!exists', null],
             required: [true, true, false],
